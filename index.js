@@ -26,7 +26,7 @@ app.post('/api/send-otp', async (req, res) => {
 
     try {
         await axios.post('https://api.brevo.com/v3/smtp/email', {
-            sender: { name: "RAG Platform", email: "Princepratap702@gmail.com" },
+            sender: { name: "RAG Platform", email: "prince@bharatcabs.com" },
             to: [{ email: email }],
             subject: "Your RAG Verification Code",
             htmlContent: `
