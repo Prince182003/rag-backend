@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Esports Admin Panel - Tournament History</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = { darkMode: 'class' };
+        if (localStorage.getItem('theme') === 'light') { document.documentElement.classList.remove('dark'); } else { document.documentElement.classList.add('dark'); }
+        function toggleTournamentMenu() {
+            const submenu = document.getElementById('tournament-submenu');
+            const arrow = document.getElementById('tournament-arrow');
+            submenu.classList.toggle('hidden');
+            arrow.classList.toggle('fa-chevron-down');
+            arrow.classList.toggle('fa-chevron-up');
+        }
+
+// --- ADMIN AUTHENTICATION GUARD ---
+if (sessionStorage.getItem('isAdminAuthenticated') !== 'true') {
+    window.location.href = 'login.html';
+}
+
+
+    </script>
+</head>
+<body class="bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-100 font-sans transition-colors duration-200">
+    <div class="flex h-screen overflow-hidden">
+        <div class="hidden md:flex md:flex-shrink-0">
+            <div class="flex flex-col w-64 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700">
+                <div class="flex items-center justify-center h-16 bg-gray-100 dark:bg-gray-900 px-4">
+                    <span class="text-xl font-bold tracking-wider text-indigo-600 dark:text-indigo-400">ESPORTS<span class="text-gray-800 dark:text-white">ADMIN</span></span>
+                </div>
+                <div class="flex flex-col flex-grow px-4 py-6 space-y-2">
+                    <a href="admin.html" class="flex items-center px-4 py-2.5 text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition"><i class="fa-solid fa-chart-pie mr-3"></i> Dashboard</a>
+                    <a href="users.html" class="flex items-center px-4 py-2.5 text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition"><i class="fa-solid fa-users mr-3"></i> Users & Deposits</a>
+                    <div>
+                        <button onclick="toggleTournamentMenu()" class="w-full flex items-center justify-between px-4 py-2.5 text-sm font-medium bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg transition">
+                            <span class="flex items-center"><i class="fa-solid fa-gamepad mr-3"></i> Tournaments</span>
+                            <i id="tournament-arrow" class="fa-solid fa-chevron-up text-xs"></i>
+                        </button>
+                        <div id="tournament-submenu" class="pl-8 mt-1 space-y-1">
+                            <a href="create-tournament.html" class="block px-3 py-2 text-xs font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md transition"><i class="fa-solid fa-plus mr-2"></i> Create Tournament</a>
+                            <a href="tournament-history.html" class="block px-3 py-2 text-xs font-medium text-white bg-indigo-600 rounded-md transition"><i class="fa-solid fa-clock-rotate-left mr-2"></i> Tournament History</a>
+                        </div>
+                    </div>
+                    <a href="transactions.html" class="flex items-center px-4 py-2.5 text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition"><i class="fa-solid fa-wallet mr-3"></i> Transactions</a>
+                    <a href="settings.html" class="flex items-center px-4 py-2.5 text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition"><i class="fa-solid fa-gear mr-3"></i> Settings</a>
+                </div>
+            </div>
+        </div>
+        <div class="flex flex-col flex-1 overflow-y-auto">
+            <header class="flex items-center justify-between h-16 px-6 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
+                <h1 class="text-lg font-semibold text-gray-900 dark:text-white">Tournament History & Payouts</h1>
+            </header>
+            <main class="p-6 space-y-6">
+                <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 text-gray-400 text-sm shadow-sm">
+                    No tournament history available yet.
+                </div>
+            </main>
+        </div>
+    </div>
+</body>
+</html>

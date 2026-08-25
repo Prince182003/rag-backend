@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Esports Admin - Secure Login</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = { darkMode: 'class' };
+        
+        if (localStorage.getItem('theme') === 'light') {
+            document.documentElement.classList.remove('dark');
+        } else {
+            document.documentElement.classList.add('dark');
+        }
+
+        function handleLogin(event) {
+            event.preventDefault();
+            const passwordInput = document.getElementById('admin-password').value;
+            const errorMsg = document.getElementById('error-msg');
+
+            const secureAdminPassword = "ravvoo123"; // Change this to your preferred password
+
+            if (passwordInput === secureAdminPassword) {
+                sessionStorage.setItem('isAdminAuthenticated', 'true');
+                // Redirects to the main dashboard panel after successful login
+                window.location.href = 'admin.html';
+            } else {
+                errorMsg.classList.remove('hidden');
+                document.getElementById('admin-password').classList.add('border-red-500');
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 text-gray-900 dark:bg-gray-950 dark:text-gray-100 font-sans flex items-center justify-center h-screen overflow-hidden transition-colors duration-200">
+    
+    <div class="w-full max-w-md px-4">
+        <div class="text-center mb-8">
+            <span class="text-2xl font-black tracking-wider text-indigo-600 dark:text-indigo-400">ESPORTS<span class="text-gray-800 dark:text-white">ADMIN</span></span>
+            <p class="text-xs text-gray-500 dark:text-gray-400 mt-2 uppercase tracking-widest font-semibold">Restricted Access Gateway</p>
+        </div>
+
+        <div class="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 p-8 rounded-2xl shadow-xl space-y-6">
+            <div class="space-y-1">
+                <h1 class="text-lg font-bold text-gray-900 dark:text-white">Admin Authentication</h1>
+                <p class="text-xs text-gray-500 dark:text-gray-400">Enter your master password to unlock backend controls.</p>
+            </div>
+
+            <form onsubmit="handleLogin(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs uppercase tracking-wider text-gray-500 dark:text-gray-400 font-semibold mb-2">Master Password</label>
+                    <div class="relative">
+                        <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-gray-400">
+                            <i class="fa-solid fa-lock text-sm"></i>
+                        </span>
+                        <input type="password" id="admin-password" placeholder="••••••••" class="w-full bg-gray-50 dark:bg-gray-950 border border-gray-300 dark:border-gray-800 rounded-xl pl-11 pr-4 py-3 text-sm text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-600 focus:outline-none focus:border-indigo-500 transition shadow-sm" required>
+                    </div>
+                </div>
+
+                <p id="error-msg" class="text-xs text-red-500 font-medium hidden">
+                    <i class="fa-solid fa-triangle-exclamation mr-1"></i> Invalid password. Try again (Default: ravvoo123).
+                </p>
+
+                <button type="submit" class="w-full py-3.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-sm font-bold text-white transition shadow-lg shadow-indigo-600/30 flex items-center justify-center space-x-2">
+                    <span>Authenticate Session</span>
+                    <i class="fa-solid fa-arrow-right text-xs"></i>
+                </button>
+            </form>
+        </div>
+
+        <div class="text-center mt-6">
+            <p class="text-[11px] text-gray-400 dark:text-gray-600">Protected by VPS Session Guard • Zero Backend Dependency</p>
+        </div>
+    </div>
+
+</body>
+</html>

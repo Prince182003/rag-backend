@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Esports Admin Panel - Users & Deposits</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = { darkMode: 'class' };
+        if (localStorage.getItem('theme') === 'light') { document.documentElement.classList.remove('dark'); } else { document.documentElement.classList.add('dark'); }
+        function toggleTournamentMenu() {
+            const submenu = document.getElementById('tournament-submenu');
+            const arrow = document.getElementById('tournament-arrow');
+            submenu.classList.toggle('hidden');
+            arrow.classList.toggle('fa-chevron-down');
+            arrow.classList.toggle('fa-chevron-up');
+        }
+    </script>
+</head>
+<body class="bg-gray-900 text-gray-100 font-sans">
+    <div class="flex h-screen overflow-hidden">
+        <div class="hidden md:flex md:flex-shrink-0">
+            <div class="flex flex-col w-64 bg-gray-800 border-r border-gray-700">
+                <div class="flex items-center justify-center h-16 bg-gray-900 px-4">
+                    <span class="text-xl font-bold tracking-wider text-indigo-400">ESPORTS<span class="text-white">ADMIN</span></span>
+                </div>
+                <div class="flex flex-col flex-grow px-4 py-6 space-y-2">
+                    <a href="admin.html" class="flex items-center px-4 py-2.5 text-sm font-medium text-gray-300 hover:bg-gray-700 rounded-lg transition"><i class="fa-solid fa-chart-pie mr-3"></i> Dashboard</a>
+                    <a href="users.html" class="flex items-center px-4 py-2.5 text-sm font-medium bg-indigo-600 text-white rounded-lg shadow-sm"><i class="fa-solid fa-users mr-3"></i> Users & Deposits</a>
+                    <div>
+                        <button onclick="toggleTournamentMenu()" class="w-full flex items-center justify-between px-4 py-2.5 text-sm font-medium text-gray-300 hover:bg-gray-700 rounded-lg transition">
+                            <span class="flex items-center"><i class="fa-solid fa-gamepad mr-3"></i> Tournaments</span>
+                            <i id="tournament-arrow" class="fa-solid fa-chevron-down text-xs"></i>
+                        </button>
+                        <div id="tournament-submenu" class="hidden pl-8 mt-1 space-y-1">
+                            <a href="create-tournament.html" class="block px-3 py-2 text-xs font-medium text-gray-400 hover:text-white hover:bg-gray-700 rounded-md transition"><i class="fa-solid fa-plus mr-2"></i> Create Tournament</a>
+                            <a href="tournament-history.html" class="block px-3 py-2 text-xs font-medium text-gray-400 hover:text-white hover:bg-gray-700 rounded-md transition"><i class="fa-solid fa-clock-rotate-left mr-2"></i> Tournament History</a>
+                        </div>
+                    </div>
+                    <a href="transactions.html" class="flex items-center px-4 py-2.5 text-sm font-medium text-gray-300 hover:bg-gray-700 rounded-lg transition"><i class="fa-solid fa-wallet mr-3"></i> Transactions</a>
+                    <a href="settings.html" class="flex items-center px-4 py-2.5 text-sm font-medium text-gray-300 hover:bg-gray-700 rounded-lg transition"><i class="fa-solid fa-gear mr-3"></i> Settings</a>
+                </div>
+            </div>
+        </div>
+        <div class="flex flex-col flex-1 overflow-y-auto">
+            <header class="flex items-center justify-between h-16 px-6 bg-gray-800 border-b border-gray-700">
+                <h1 class="text-lg font-semibold text-white">Users & Payment Verification</h1>
+                <div class="flex items-center space-x-4">
+                    <span class="text-sm text-gray-400">Welcome, <strong class="text-white">Admin</strong></span>
+                    <div class="h-8 w-8 bg-indigo-500 rounded-full flex items-center justify-center font-bold text-white">A</div>
+                </div>
+            </header>
+            <main class="p-6 space-y-6">
+                <div class="bg-gray-800 rounded-xl border border-gray-700 overflow-hidden">
+                    <div class="p-4 border-b border-gray-700 flex justify-between items-center">
+                        <h2 class="font-semibold text-white">Registered Users & Ledger</h2>
+                        <input type="text" placeholder="Search user..." class="bg-gray-900 border border-gray-700 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none">
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-sm text-gray-300">
+                            <thead class="bg-gray-900 text-xs uppercase text-gray-400">
+                                <tr>
+                                    <th class="px-6 py-3">User</th>
+                                    <th class="px-6 py-3">Game ID</th>
+                                    <th class="px-6 py-3">Wallet Balance</th>
+                                    <th class="px-6 py-3">Status</th>
+                                    <th class="px-6 py-3">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-700">
+                                <tr class="hover:bg-gray-750">
+                                    <td class="px-6 py-4 font-medium text-white">Rahul Sharma</td>
+                                    <td class="px-6 py-4 text-gray-400">BGMI_Rahul99</td>
+                                    <td class="px-6 py-4 text-emerald-400 font-semibold">₹450</td>
+                                    <td class="px-6 py-4"><span class="px-2.5 py-1 text-xs bg-emerald-900/50 text-emerald-300 rounded-full">Active</span></td>
+                                    <td class="px-6 py-4"><a href="user-profile.html" class="text-indigo-400 hover:underline">View Profile</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+</body>
+</html>
