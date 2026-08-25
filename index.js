@@ -1,31 +1,53 @@
 const express = require('express');
+const http = require('http');
+const { Server } = require('socket.io');
 const cors = require('cors');
 const axios = require('axios');
 const path = require('path');
 
 const app = express();
+const server = http.createServer(app);
+const io = new Server(server, {
+    cors: { origin: "*" }
+});
+
 app.use(express.json());
 app.use(cors());
 
-// Serve static frontend files from the root directory
+// Serve static frontend files from root
 app.use(express.static(path.join(__dirname)));
 
 const PORT = process.env.PORT || 10000;
 const BREVO_API_KEY = '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';
 
-// Root Route -> User Home / Index
+// Routes
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-// Explicit Admin Login Route
 app.get('/login.html', (req, res) => {
     res.sendFile(path.join(__dirname, 'login.html'));
 });
 
-// Explicit Admin Dashboard Route
 app.get('/admin.html', (req, res) => {
     res.sendFile(path.join(__dirname, 'admin.html'));
+});
+
+// Real-Time Chat Handler via Socket.io
+io.on('connection', (socket) => {
+    console.log('A user connected for live chat:', socket.id);
+
+    socket.on('user_message', (data) => {
+        io.emit('admin_receive_message', data);
+    });
+
+    socket.on('admin_message', (data) => {
+        io.emit('user_receive_message', data);
+    });
+
+    socket.on('disconnect', () => {
+        console.log('User disconnected:', socket.id);
+    });
 });
 
 // OTP Sending Route via Brevo
@@ -67,6 +89,7 @@ app.post('/api/send-otp', async (req, res) => {
     }
 });
 
-app.listen(PORT, () => {
-    console.log(`RAG Server is listening on port ${PORT}`);
+// Use server.listen instead of app.listen for Socket.io
+server.listen(PORT, () => {
+    console.log(`RAG Server with Real-Time Chat is listening on port ${PORT}`);
 });
