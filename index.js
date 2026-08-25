@@ -1,17 +1,31 @@
 const express = require('express');
 const cors = require('cors');
 const axios = require('axios');
+const path = require('path');
 
 const app = express();
 app.use(express.json());
 app.use(cors());
 
-const PORT = process.env.PORT || 3000;
-const BREVO_API_KEY = process.env.BREVO_API_KEY || 'YOUR_BREVO_API_KEY_HERE';
+// Serve static frontend files from the root directory
+app.use(express.static(path.join(__dirname)));
 
-// Health Check Route
+const PORT = process.env.PORT || 10000;
+const BREVO_API_KEY = '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';
+
+// Root Route -> User Home / Index
 app.get('/', (req, res) => {
-    res.status(200).json({ status: 'Online', message: 'RAG Platform Backend is running successfully!' });
+    res.sendFile(path.join(__dirname, 'index.html'));
+});
+
+// Explicit Admin Login Route
+app.get('/login.html', (req, res) => {
+    res.sendFile(path.join(__dirname, 'login.html'));
+});
+
+// Explicit Admin Dashboard Route
+app.get('/admin.html', (req, res) => {
+    res.sendFile(path.join(__dirname, 'admin.html'));
 });
 
 // OTP Sending Route via Brevo
@@ -21,7 +35,6 @@ app.post('/api/send-otp', async (req, res) => {
         return res.status(400).json({ error: 'Email is required' });
     }
 
-    // Generate random 6-digit OTP code
     const otpCode = Math.floor(100000 + Math.random() * 900000).toString();
 
     try {
