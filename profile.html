@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAG Platform - Profile</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen">
+
+    <nav class="bg-white border-b border-slate-200 px-6 py-4 flex justify-between items-center shadow-sm">
+        <h1 class="text-xl font-bold text-indigo-600">RAG Platform</h1>
+        <div class="space-x-4">
+            <a href="home.html" class="text-slate-600 hover:text-indigo-600 font-medium">Home</a>
+            <a href="upload.html" class="text-slate-600 hover:text-indigo-600 font-medium">Upload Documents</a>
+            <a href="profile.html" class="text-indigo-600 font-semibold">Profile</a>
+            <button onclick="logout()" class="text-red-600 hover:text-red-700 font-medium ml-4">Logout</button>
+        </div>
+    </nav>
+
+    <main class="max-w-2xl mx-auto mt-10 p-6">
+        <div class="bg-white p-8 rounded-2xl shadow-md border border-slate-200">
+            <h2 class="text-2xl font-bold text-slate-900 mb-6">User Profile</h2>
+            
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm font-semibold text-slate-500">Registered Email</label>
+                    <p id="profile-email" class="text-lg font-bold text-slate-800 mt-1"></p>
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-slate-500">Account Status</label>
+                    <span class="inline-block mt-1 px-3 py-1 bg-emerald-100 text-emerald-800 text-xs font-bold rounded-full">Active & Verified</span>
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-slate-500">Workspace Role</label>
+                    <p class="text-slate-800 font-medium mt-1">Administrator / Owner</p>
+                </div>
+            </div>
+
+            <button onclick="logout()" 
+                class="w-full mt-8 bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 font-semibold py-3 rounded-lg transition duration-200">
+                Log Out of Account
+            </button>
+        </div>
+    </main>
+
+    <script>
+        const email = sessionStorage.getItem('rag_user');
+        if (!email) {
+            window.location.href = "index.html";
+        } else {
+            document.getElementById('profile-email').innerText = email;
+        }
+
+        function logout() {
+            sessionStorage.removeItem('rag_user');
+            window.location.href = "index.html";
+        }
+    </script>
+</body>
+</html>
